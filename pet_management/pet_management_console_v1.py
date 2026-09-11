@@ -159,7 +159,7 @@ while True:
 
 
         if user_input == 8:
-            print("\n\n\nProgram ended.")
+            print("\n\n\nThank you for using this console version app of mine!")
             break
         if user_input not in [1, 2, 3, 4, 5, 6, 7, 8]:
             print("Please choose a number from 1 to 8.")
@@ -170,6 +170,7 @@ while True:
 
     except ValueError:
         print("Invalid input. Try again")
+
 
 
 
