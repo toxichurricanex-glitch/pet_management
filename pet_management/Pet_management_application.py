@@ -79,9 +79,13 @@ add_pet_screen = tkinter.Frame(content_frame)
 
 def save():
     try:
-        name = name_entry.get().capitalize()
+        name = name_entry.get().strip().capitalize()
         age = int(age_entry.get())
-        pet_type = pet_type_entry.get().capitalize()
+        pet_type = pet_type_entry.get().strip().capitalize()
+
+        if name == "" or pet_type == "" or age < 0:
+            output_label.config(text = "Invalid input, try again.")
+            return
 
         output_label.config(text = f"{name} ({pet_type}) {age} year/s old saved.")
 
@@ -93,7 +97,7 @@ def save():
 
 
     except ValueError:
-        output_label.config(text = "User input is Invalid, try again.")
+            output_label.config(text = "Age doesnt work that way, try again.")
 
 add_pet_header = tkinter.Label(add_pet_screen, text = "Add your cutest pets into the Pet Sanctuary!")
 add_pet_header.grid(row = 0, column = 1)
@@ -134,4 +138,4 @@ pet_sanctuary_header.grid(row = 0, column = 1)
 #-------------------------------------------------------------------------------------------------------------------------------------------------
 window.mainloop()
 
-#Fixed a logical problem, user's input is deleted once the save button is pressed
+#Fixed a logical problem I call "input validation logical error" in the save function
