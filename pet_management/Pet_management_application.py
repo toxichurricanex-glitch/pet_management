@@ -87,6 +87,10 @@ def save():
 
         pets.append(Pet(name, age, pet_type))
 
+        name_entry.delete(0, "end")
+        age_entry.delete(0, "end")
+        pet_type_entry.delete(0, "end")
+
 
     except ValueError:
         output_label.config(text = "User input is Invalid, try again.")
@@ -130,8 +134,4 @@ pet_sanctuary_header.grid(row = 0, column = 1)
 #-------------------------------------------------------------------------------------------------------------------------------------------------
 window.mainloop()
 
-# Pet sanctuary got me stuck for so much time, probably because I am overwhelmed by other things too. But now, I understand how it works. Basically, the one I was struggling for
-# was just a logical problem: user adds a pet -> went to pet sanctuary -> went home -> went to pet sanctuary but everytime pet sanctuary is opened, it will make a new list which overlaps
-# the previous list.
-
-#  yeah that was the thing that got me stuck lol
+#Fixed a logical problem, user's input is deleted once the save button is pressed
