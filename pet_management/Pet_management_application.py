@@ -88,29 +88,40 @@ home_pet_indicator.grid(row = 5, column = 0, columnspan = 2, sticky = "w")
 add_pet_screen = tkinter.Frame(content_frame)
 
 def save():
-    try:
-        name = name_entry.get().strip().capitalize()
-        age = int(age_entry.get())
-        pet_type = pet_type_entry.get().strip().capitalize()
+    name = name_entry.get().strip().capitalize()
+    age = age_entry.get().strip()
+    pet_type = pet_type_entry.get().strip().capitalize()
 
-        if name == "" or pet_type == "" or age < 0:
-            output_label.config(text = "Invalid input, try again.")
+    if name == "" and age == "" and pet_type == "":
+        output_label.config(text = "Please enter your pet's information.")
+
+    elif name == "" or age == "" or pet_type == "":
+        output_label.config(text = "Please fill in the blanks.")
+
+    else:
+        try:
+            age = int(age)
+
+            if age < 0:
+                age_entry.delete(0, "end")
+                output_label.config(text = "Age must not be negative.")
+                return
+
+            pets.append(Pet(name, age, pet_type))
             name_entry.delete(0, "end")
             age_entry.delete(0, "end")
             pet_type_entry.delete(0, "end")
-            return
+            output_label.config(text = f"{name} is happy to be in Pet Sanctuary!")
 
-        pets.append(Pet(name, age, pet_type))
-        output_label.config(text = f"{name} ({pet_type}) {age} year/s old saved.")
-
-        home_pet_indicator.config(text = f"Number of pets stored: {len(pets)}")
-        name_entry.delete(0, "end")
-        age_entry.delete(0, "end")
-        pet_type_entry.delete(0, "end")
+            home_pet_indicator.config(text=f"Number of pets stored: {len(pets)}")
 
 
-    except ValueError:
-        output_label.config(text = "Can't use strings for age. Try again")
+        except ValueError:
+            age_entry.delete(0, "end")
+            output_label.config(text = "Age must be numbers.")
+
+
+
 
 add_pet_header = tkinter.Label(add_pet_screen, text = "Add your wonderful pets into the Pet Sanctuary!", font = ("Arial", 13, "bold"))
 add_pet_header.grid(row = 0, column = 0, columnspan = 2, sticky = "w")
@@ -150,9 +161,5 @@ pet_sanctuary_label.grid(row = 1, column = 0, sticky = "w")
 window.mainloop()
 
 
-#Did some basic GUI design/font
-#Learnt columnspan and sticky
-#Spiced up home screen
-#Made it so that if the user's input is invalid in Add Pet, it automatically clears the entry.
-
-#Encountered more logical problems in input validation
+# Fixed more logical problems in Add Pet input
+# soon to fix more logical problems in input, which is accepting integers on names and pet types
